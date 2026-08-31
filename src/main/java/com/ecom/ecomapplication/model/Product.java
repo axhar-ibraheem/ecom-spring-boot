@@ -7,29 +7,27 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "products")
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "user_table")
-public class User {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
 
-    @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.CUSTOMER;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    private String name;
+    private String description;
+    private BigDecimal price;
+    private Integer stockQuantity;
+    private String category;
+    private String imageUrl;
+    private Boolean active = true;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
