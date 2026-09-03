@@ -19,10 +19,11 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public List<ProductResponse> fetchAllProducts() {
-        return productRepository.findByActiveTrue()
-                                .stream()
-                                .map(this::toResponse)
-                                .collect(Collectors.toList());
+        return productRepository
+                .findByActiveTrue()
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 
     public ProductResponse createProduct(ProductRequest productRequest) {
@@ -33,28 +34,31 @@ public class ProductService {
 
     @Transactional
     public Optional<ProductResponse> updateProduct(Long id, ProductRequest productRequest) {
-        return productRepository.findById(id)
-                                .map(existingProduct -> {
-                                    updateProductFields(existingProduct, productRequest);
-                                    return toResponse(existingProduct);
-                                });
+        return productRepository
+                .findById(id)
+                .map(existingProduct -> {
+                    updateProductFields(existingProduct, productRequest);
+                    return toResponse(existingProduct);
+                });
     }
 
     @Transactional
     public boolean deleteProduct(Long id) {
-        return productRepository.findById(id)
-                                .map(product -> {
-                                    product.setActive(false);
-                                    return true;
-                                })
-                                .orElse(false);
+        return productRepository
+                .findById(id)
+                .map(product -> {
+                    product.setActive(false);
+                    return true;
+                })
+                .orElse(false);
     }
 
     public List<ProductResponse> searchProducts(String keyword) {
-        return productRepository.searchActiveProducts(keyword)
-                                .stream()
-                                .map(this::toResponse)
-                                .collect(Collectors.toList());
+        return productRepository
+                .searchActiveProducts(keyword)
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 
     private Product toEntity(ProductRequest request) {
