@@ -10,3 +10,19 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+management:
+   endpoints:
+     web:
+       exposure:
+         include: '*'
+   endpoint:
+     health:
+       show-details: always
+   info:
+     env:
+       enabled: true
+info:
+  app:
+    name: MyNewEcomApp
+    description: App build using spring boot 4.1.1
+    version: 1.0.0
